@@ -15,6 +15,7 @@ async function run() {
 
     const sha = inputs.sha ? inputs.sha : process.env.GITHUB_SHA;
     core.debug(`SHA: ${sha}`);
+    let interpolated_string = eval('`'+inputs.body+'`');
 
     await request(
       `POST /repos/${process.env.GITHUB_REPOSITORY}/commits/${sha}/comments`,
@@ -22,7 +23,7 @@ async function run() {
         headers: {
           authorization: `token ${inputs.token}`
         },
-        body: `${inputs.body}`,
+        body: interpolated_string,
         path: `${inputs.path}`,
         position: `${inputs.position}`
       }
