@@ -27,7 +27,10 @@ async function run() {
         position: `${inputs.position}`
       }
     );
-    console.log(`The event payload: ${Object.keys(response).join(',')}`);
+    console.log(`The event payload: response.url`);
+    console.log(`The event payload: ${Object.keys(response.headers).join(',')}`);
+    console.log(`The event payload: ${Object.keys(response.data).join(',')}`);
+
     core.setOutput("github_url", response.htmlUrl);
   } catch (error) {
     core.debug(inspect(error));
