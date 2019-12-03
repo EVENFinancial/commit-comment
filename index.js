@@ -16,7 +16,7 @@ async function run() {
     const sha = inputs.sha ? inputs.sha : process.env.GITHUB_SHA;
     core.debug(`SHA: ${sha}`);
     let interpolated_string = eval('`'+inputs.body+'`');
-    await request(
+    const response = await request(
       `POST /repos/${process.env.GITHUB_REPOSITORY}/commits/${sha}/comments`,
       {
         headers: {
@@ -27,6 +27,7 @@ async function run() {
         position: `${inputs.position}`
       }
     );
+    core.setOutput("github_url", response.url);
   } catch (error) {
     core.debug(inspect(error));
     core.setFailed(error.message);
