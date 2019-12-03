@@ -419,7 +419,7 @@ async function run() {
     console.log(`${ Object.keys(pullRequestResponse).join(',')}`);
     console.log(`${ Object.keys(pullRequestResponse.data).join(',')}`);
     core.setOutput("github_commit_url", commentResponse.data.html_url);
-    core.setOutput("github_pull_request_url", pullRequestResponse.data.url);
+    core.setOutput("github_pull_request_url", pullRequestResponse.data[0].html_url);
   } catch (error) {
     core.debug(inspect(error));
     core.setFailed(error.message);
