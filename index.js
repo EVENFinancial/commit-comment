@@ -32,7 +32,8 @@ async function run() {
       `GET /repos/${process.env.GITHUB_REPOSITORY}/commits/${sha}/pulls`,
       {
         headers: {
-          authorization: `token ${inputs.token}`
+          authorization: `token ${inputs.token}`,
+          Accept: `application/vnd.github.groot-preview+json`
         },
       }
     );
