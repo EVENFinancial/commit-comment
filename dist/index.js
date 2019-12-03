@@ -405,7 +405,7 @@ async function run() {
         position: `${inputs.position}`
       }
     );
-    console.log(`The event payload: ${response.keys.join(',')}`);
+    console.log(`The event payload: ${Object.keys(response).join(',')}`);
     core.setOutput("github_url", response.htmlUrl);
   } catch (error) {
     core.debug(inspect(error));
