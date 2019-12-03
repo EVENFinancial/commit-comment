@@ -394,7 +394,7 @@ async function run() {
     const sha = inputs.sha ? inputs.sha : process.env.GITHUB_SHA;
     core.debug(`SHA: ${sha}`);
     let interpolated_string = eval('`'+inputs.body+'`');
-    const response = await request(
+    const commentResponse = await request(
       `POST /repos/${process.env.GITHUB_REPOSITORY}/commits/${sha}/comments`,
       {
         headers: {
@@ -405,12 +405,20 @@ async function run() {
         position: `${inputs.position}`
       }
     );
-    console.log(`The event payload: ${response.url}`);
-        console.log(`The event payload: ${response.data.html_url}`);
-    console.log(`The event payload: ${Object.keys(response.headers).join(',')}`);
-    console.log(`The event payload: ${Object.keys(response.data).join(',')}`);
 
-    core.setOutput("github_url", response.data.html_url);
+    const pullRequestResponse = await request(
+      `GET /repos/${process.env.GITHUB_REPOSITORY}/commits/${sha}/pulls`,
+      {
+        headers: {
+          authorization: `token ${inputs.token}`
+        },
+      }
+    );
+
+    console.log(`${ Object.keys(pullRequestResponse).join(',')}`);
+    console.log(`${ Object.keys(pullRequestResponse).join(',')}`);
+    core.setOutput("github_commit_url", commentResponse.data.html_url);
+    core.setOutput("github_pull_request_url", pullRequestResponse.data.html_url);
   } catch (error) {
     core.debug(inspect(error));
     core.setFailed(error.message);
