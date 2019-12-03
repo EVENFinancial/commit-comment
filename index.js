@@ -27,7 +27,7 @@ async function run() {
         position: `${inputs.position}`
       }
     );
-    core.setOutput("github_url", response.response.html_url);
+    core.setOutput("github_url", response.data.html_url);
   } catch (error) {
     core.debug(inspect(error));
     core.setFailed(error.message);
