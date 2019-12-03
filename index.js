@@ -27,8 +27,8 @@ async function run() {
         position: `${inputs.position}`
       }
     );
-    console.log(`The event payload: response.url`);
-        console.log(`The event payload: response.data.html_url`);
+    console.log(`The event payload: ${response.url}`);
+        console.log(`The event payload: ${response.data.html_url}`);
     console.log(`The event payload: ${Object.keys(response.headers).join(',')}`);
     console.log(`The event payload: ${Object.keys(response.data).join(',')}`);
 
