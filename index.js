@@ -41,7 +41,7 @@ async function run() {
     console.log(`${ Object.keys(pullRequestResponse).join(',')}`);
     console.log(`${ Object.keys(pullRequestResponse.data).join(',')}`);
     const pr = pullRequestResponse.data[0] || { html_url: 'https://github.com/EVENFinancial/api-spec', title: 'Not opened yet'}
-    core.setOutput("github_commit_url", commentResponse.data.html_url || 'https://github.com/EVENFinancial/api-spec');
+    core.setOutput("github_commit_url", (commentResponse.data || {html_url: 'https://github.com/EVENFinancial/api-spec'}).html_url || 'https://github.com/EVENFinancial/api-spec');
     core.setOutput("github_pull_request_url", pr.html_url);
     core.setOutput("github_pull_request_title", pr.title);
   } catch (error) {
