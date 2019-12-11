@@ -40,9 +40,9 @@ async function run() {
 
     console.log(`${ Object.keys(pullRequestResponse).join(',')}`);
     console.log(`${ Object.keys(pullRequestResponse.data).join(',')}`);
-    core.setOutput("github_commit_url", commentResponse.data.html_url);
-    core.setOutput("github_pull_request_url", pullRequestResponse.data[0].html_url);
-    core.setOutput("github_pull_request_title", pullRequestResponse.data[0].title);
+    core.setOutput("github_commit_url", commentResponse.data.html_url || 'https://github.com/EVENFinancial/api-spec');
+    core.setOutput("github_pull_request_url", pullRequestResponse.data[0].html_url || 'https://github.com/EVENFinancial/api-spec');
+    core.setOutput("github_pull_request_title", pullRequestResponse.data[0].title || 'Not opened yet');
   } catch (error) {
     core.debug(inspect(error));
     core.setFailed(error.message);
